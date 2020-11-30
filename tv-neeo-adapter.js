@@ -26,7 +26,7 @@ class TVDevice extends Device {
 
     for (const propertyName in deviceDescription.properties) {
       const propertyDescription = deviceDescription.properties[propertyName];
-      let property = new TVProperty(this, propertyName, propertyDescription);
+      const property = new TVProperty(this, propertyName, propertyDescription);
       this.properties.set(propertyName, property);
     }
 
