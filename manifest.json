@@ -1,6 +1,6 @@
 {
   "author": "Michael Kohler",
-  "description": "Adapter for the WebThings Gateway to control my Samsung Smart TV through IR. The TV is connected to NEEO, and this adapter uses actions to dispatch HTTP triggers to NEEO.",
+  "description": "Adapter for the WebThings Gateway to control NEEO devices. This adapter uses actions to dispatch HTTP triggers to NEEO macros.",
   "gateway_specific_settings": {
     "webthings": {
       "exec": "{nodeLoader} {path}",
@@ -9,12 +9,12 @@
       "strict_min_version": "0.10.0"
     }
   },
-  "homepage_url": "https://github.com/MichaelKohler/tv-neeo-adapter",
-  "id": "tv-neeo-adapter",
+  "homepage_url": "https://github.com/MichaelKohler/neeo-adapter",
+  "id": "neeo-adapter",
   "license": "MPL-2.0",
   "manifest_version": 1,
-  "name": "TV NEEO Adapter",
-  "short_name": "TV NEEO",
+  "name": "NEEO Adapter",
+  "short_name": "NEEO",
   "version": "0.0.1",
   "options": {
     "schema": {
@@ -25,28 +25,56 @@
           "type": "string",
           "title": "NEEO IP"
         },
-        "neeoRoomID": {
-          "type": "string",
-          "title": "NEEO Room ID"
-        },
-        "neeoDeviceID": {
-          "type": "string",
-          "title": "NEEO Device ID"
-        },
-        "macros": {
+        "devices": {
           "type": "array",
-          "title": "A list of macros to expose",
+          "title": "List of devices to expose",
           "items": {
             "type": "object",
-            "required": [],
             "properties": {
-              "macro": {
+              "name": {
                 "type": "string",
-                "title": "Macro"
+                "title": "Device Name (unique)"
               },
-              "marcroID": {
+              "type": {
                 "type": "string",
-                "title": "Macro ID"
+                "title": "Device Type"
+              },
+              "title": {
+                "type": "string",
+                "title": "Device Label"
+              },
+              "description": {
+                "type": "string",
+                "title": "Device Description"
+              },
+              "neeoRoomID": {
+                "type": "string",
+                "title": "NEEO Room ID"
+              },
+              "neeoDeviceID": {
+                "type": "string",
+                "title": "NEEO Device ID"
+              },
+              "macros": {
+                "type": "array",
+                "title": "A list of macros to expose",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "macro",
+                    "macroID"
+                  ],
+                  "properties": {
+                    "macro": {
+                      "type": "string",
+                      "title": "Macro"
+                    },
+                    "macroID": {
+                      "type": "string",
+                      "title": "Macro ID"
+                    }
+                  }
+                }
               }
             }
           }

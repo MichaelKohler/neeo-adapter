@@ -35,8 +35,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: tv-neeo-adapter-${{ env.RELEASE_VERSION }}.tgz
-          asset_name: tv-neeo-adapter-${{ env.RELEASE_VERSION }}.tgz
+          asset_path: neeo-adapter-${{ env.RELEASE_VERSION }}.tgz
+          asset_name: neeo-adapter-${{ env.RELEASE_VERSION }}.tgz
           asset_content_type: application/gnutar
       - name: Upload Release Asset Checksum
         id: upload-release-asset-checksum
@@ -45,6 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: tv-neeo-adapter-${{ env.RELEASE_VERSION }}.tgz.sha256sum
-          asset_name: tv-neeo-adapter-${{ env.RELEASE_VERSION }}.tgz.sha256sum
+          asset_path: neeo-adapter-${{ env.RELEASE_VERSION }}.tgz.sha256sum
+          asset_name: neeo-adapter-${{ env.RELEASE_VERSION }}.tgz.sha256sum
           asset_content_type: text/plain

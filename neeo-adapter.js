@@ -7,7 +7,7 @@ const {
 } = require('gateway-addon');
 const fetch = require('node-fetch');
 
-class TVProperty extends Property {
+class NeeoProperty extends Property {
   constructor(device, name, propertyDescription) {
     super(device, name, propertyDescription);
     this.setCachedValue(propertyDescription.value);
@@ -15,7 +15,7 @@ class TVProperty extends Property {
   }
 }
 
-class TVDevice extends Device {
+class NeeoDevice extends Device {
   constructor(adapter, id, deviceDescription) {
     super(adapter, id);
     this.title = deviceDescription.title;
@@ -23,10 +23,11 @@ class TVDevice extends Device {
     this['@type'] = deviceDescription['@type'];
     this.description = deviceDescription.description;
     this.config = deviceDescription.config;
+    this.neeoIP = deviceDescription.neeoIP;
 
     for (const propertyName in deviceDescription.properties) {
       const propertyDescription = deviceDescription.properties[propertyName];
-      const property = new TVProperty(this, propertyName, propertyDescription);
+      const property = new NeeoProperty(this, propertyName, propertyDescription);
       this.properties.set(propertyName, property);
     }
 
@@ -45,7 +46,6 @@ class TVDevice extends Device {
   async performAction(action) {
     const {
       macros,
-      neeoIP,
       neeoRoomID,
       neeoDeviceID,
     } = this.config;
@@ -53,7 +53,7 @@ class TVDevice extends Device {
     action.start();
 
     const macroConfig = macros.find((macroConf) => macroConf.name === action.name);
-    const url = `http://${neeoIP}:3000/projects/home/rooms/${neeoRoomID}/devices/${neeoDeviceID}/macros/${macroConfig.macroID}/trigger`;
+    const url = `http://${this.neeoIP}:3000/projects/home/rooms/${neeoRoomID}/devices/${neeoDeviceID}/macros/${macroConfig.macroID}/trigger`;
     try {
       await fetch(url);
     } catch (error) {
@@ -64,20 +64,23 @@ class TVDevice extends Device {
   }
 }
 
-class TvNeeoAdapter extends Adapter {
+class NeeoAdapter extends Adapter {
   constructor(addonManager, manifest) {
-    super(addonManager, 'TvNeeoAdapter', manifest.id);
-    const config = manifest.moziot.config;
+    super(addonManager, 'NeeoAdapter', manifest.id);
+    const { devices = [], neeoIP } = manifest.moziot.config;
 
-    const device = new TVDevice(this, 'samsung-tv', {
-      '@type': ['OnOffSwitch'],
-      title: 'Samsung TV IR',
-      description: 'Samsung TV connected through NEEO for IR. Uses actions to dispatch HTTP commands to NEEO.',
-      config,
-    });
+    for (const device of devices) {
+      const neeoDevice = new NeeoDevice(this, device.name, {
+        '@type': device.type,
+        title: device.title,
+        description: device.description,
+        config: device,
+        neeoIP,
+      });
 
-    this.handleDeviceAdded(device);
+      this.handleDeviceAdded(neeoDevice);
+    }
   }
 }
 
-module.exports = TvNeeoAdapter;
+module.exports = NeeoAdapter;
