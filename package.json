@@ -1,0 +1,26 @@
+{
+  "name": "mk-tv-neeo-adapter",
+  "version": "0.0.1",
+  "description": "Adapter for the WebThings Gateway to control my Samsung Smart TV through IR. The TV is connected to NEEO, and this adapter uses actions to dispatch HTTP triggers to NEEO.",
+  "author": "Michael Kohler <me@michaelkohler.info>",
+  "main": "index.js",
+  "homepage": "https://github.com/MichaelKohler/tv-neeo-adapter",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelKohler/tv-neeo-adapter.git"
+  },
+  "scripts": {
+    "build": "shasum --algorithm 256 manifest.json package.json *.js LICENSE README.md > SHA256SUMS && find node_modules \\( -type f -o -type l \\) -exec shasum --algorithm 256 {} \\; >> SHA256SUMS"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "files": [
+    "index.js",
+    "manifest.json",
+    "package.json",
+    "tv-neeo-adapter.js",
+    "SHA256SUMS"
+  ]
+}

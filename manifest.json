@@ -1,0 +1,57 @@
+{
+  "author": "Michael Kohler",
+  "description": "Adapter for the WebThings Gateway to control my Samsung Smart TV through IR. The TV is connected to NEEO, and this adapter uses actions to dispatch HTTP triggers to NEEO.",
+  "gateway_specific_settings": {
+    "webthings": {
+      "exec": "{nodeLoader} {path}",
+      "primary_type": "adapter",
+      "strict_max_version": "*",
+      "strict_min_version": "0.10.0"
+    }
+  },
+  "homepage_url": "https://github.com/MichaelKohler/tv-neeo-adapter",
+  "id": "tv-neeo-adapter",
+  "license": "MPL-2.0",
+  "manifest_version": 1,
+  "name": "TV NEEO Adapter",
+  "short_name": "TV NEEO",
+  "version": "0.0.1",
+  "options": {
+    "schema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "neeoIP": {
+          "type": "string",
+          "title": "NEEO IP"
+        },
+        "neeoRoomID": {
+          "type": "string",
+          "title": "NEEO Room ID"
+        },
+        "neeoDeviceID": {
+          "type": "string",
+          "title": "NEEO Device ID"
+        },
+        "macros": {
+          "type": "array",
+          "title": "A list of macros to expose",
+          "items": {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "macro": {
+                "type": "string",
+                "title": "Macro"
+              },
+              "marcroID": {
+                "type": "string",
+                "title": "Macro ID"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
