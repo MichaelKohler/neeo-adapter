@@ -52,7 +52,7 @@ class NeeoDevice extends Device {
 
     action.start();
 
-    const macroConfig = macros.find((macroConf) => macroConf.name === action.name);
+    const macroConfig = macros.find((macroConf) => macroConf.macro === action.name);
     const url = `http://${this.neeoIP}:3000/projects/home/rooms/${neeoRoomID}/devices/${neeoDeviceID}/macros/${macroConfig.macroID}/trigger`;
     try {
       await fetch(url);
