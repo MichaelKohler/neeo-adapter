@@ -67,6 +67,8 @@ class NeeoDevice extends Device {
 class NeeoAdapter extends Adapter {
   constructor(addonManager, manifest) {
     super(addonManager, 'NeeoAdapter', manifest.id);
+    addonManager.addAdapter(this);
+
     const { devices = [], neeoIP } = manifest.moziot.config;
 
     for (const device of devices) {
