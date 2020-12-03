@@ -15,7 +15,7 @@
   "manifest_version": 1,
   "name": "NEEO Adapter",
   "short_name": "NEEO",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "options": {
     "schema": {
       "type": "object",
