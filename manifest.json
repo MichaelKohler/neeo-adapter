@@ -30,6 +30,14 @@
           "title": "List of devices to expose",
           "items": {
             "type": "object",
+            "required": [
+              "name",
+              "type",
+              "title",
+              "description",
+              "neeoRoomID",
+              "neeoDeviceID"
+            ],
             "properties": {
               "name": {
                 "type": "string",
@@ -37,7 +45,7 @@
               },
               "type": {
                 "type": "string",
-                "title": "Device Type"
+                "title": "Device Type (comma separated if multiple)"
               },
               "title": {
                 "type": "string",

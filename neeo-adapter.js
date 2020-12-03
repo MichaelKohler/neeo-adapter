@@ -73,7 +73,7 @@ class NeeoAdapter extends Adapter {
 
     for (const device of devices) {
       const neeoDevice = new NeeoDevice(this, device.name, {
-        '@type': device.type,
+        '@type': device.type && device.type.replace(', ', ',').split(','),
         title: device.title,
         description: device.description,
         config: device,
