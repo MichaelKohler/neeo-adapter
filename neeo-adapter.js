@@ -7,6 +7,9 @@ const {
 } = require('gateway-addon');
 const fetch = require('node-fetch');
 
+const config = require('./config');
+const manifest = require('./manifest.json');
+
 class NeeoProperty extends Property {
   constructor(device, name, propertyDescription) {
     super(device, name, propertyDescription);
@@ -65,11 +68,14 @@ class NeeoDevice extends Device {
 }
 
 class NeeoAdapter extends Adapter {
-  constructor(addonManager, manifest) {
-    super(addonManager, 'NeeoAdapter', manifest.name);
+  constructor(addonManager) {
+    super(addonManager, 'NeeoAdapter', manifest.id);
     addonManager.addAdapter(this);
+    this.init(manifest.id)
+  }
 
-    const { devices = [], neeoIP } = manifest.moziot.config;
+  async init(manifestId) {
+    const { devices = [], neeoIP } = await config.load(manifestId);
 
     for (const device of devices) {
       const neeoDevice = new NeeoDevice(this, device.name, {
