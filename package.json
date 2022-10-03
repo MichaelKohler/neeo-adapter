@@ -1,6 +1,6 @@
 {
   "name": "neeo-adapter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Adapter for the WebThings Gateway to control NEEO devices. This adapter uses actions to dispatch HTTP triggers to NEEO macros.",
   "author": "Michael Kohler <me@michaelkohler.info>",
   "main": "index.js",
